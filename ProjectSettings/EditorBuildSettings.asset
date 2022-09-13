@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menno Testhuis.unity
+    guid: 11c3dbf3aadcf0e4a976c84b1e5e4ebb
   m_configObjects: {}
