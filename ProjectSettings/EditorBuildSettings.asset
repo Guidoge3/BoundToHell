@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Guido Testhuis.unity
+    guid: 74b4455b4db10da4c93502a59c840a60
   m_configObjects: {}
