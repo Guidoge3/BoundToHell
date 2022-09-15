@@ -4,13 +4,5 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-Enemy
-    path: Assets/Scenes/Guido Testhuis.unity
-    guid: 74b4455b4db10da4c93502a59c840a60
-=======
-    path: Assets/Scenes/Menno Testhuis.unity
-    guid: 11c3dbf3aadcf0e4a976c84b1e5e4ebb
-main
+  m_Scenes: []
   m_configObjects: {}
