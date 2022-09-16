@@ -2,12 +2,15 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Gun : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private GunData gunData;
     [SerializeField] private Transform muzzle;
+    [SerializeField] private TMP_Text ammoText;
+    
 
 
     float timeSinceLastShot;
@@ -29,11 +32,11 @@ public class Gun : MonoBehaviour
     private IEnumerator Reload()
     {
         gunData.reloading = true;
+        ammoText.text = "Reloading";
 
         yield return new WaitForSeconds(gunData.reloadTime);
 
         gunData.currentAmmo = gunData.magSize;
-
         gunData.reloading = false;
     }
 
@@ -45,7 +48,9 @@ public class Gun : MonoBehaviour
         {
             if (CanShoot())
             {
-                if (Physics.Raycast(muzzle.position, transform.forward, out RaycastHit hitInfo, gunData.maxDistance))
+                Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5F, 0.5F, 0));
+                RaycastHit hitInfo;
+                if (Physics.Raycast(ray, out hitInfo, gunData.maxDistance))
                 {
                     IDamageable damageable = hitInfo.transform.GetComponent<IDamageable>();
                     damageable?.Damage(gunData.TakeDamage);
@@ -62,7 +67,17 @@ public class Gun : MonoBehaviour
     {
         timeSinceLastShot += Time.deltaTime;
 
-        Debug.DrawRay(muzzle.position, muzzle.forward);
+        Debug.DrawRay(muzzle.position, muzzle.forward, Color.red);
+
+        if(!gunData.reloading)
+        {
+            ammoText.text = gunData.currentAmmo.ToString() + " / " + gunData.magSize;
+        }
+
+        if (gunData.currentAmmo <= 0)
+        {
+            StartCoroutine(Reload());
+        }
     }
 
     private void OnGunShot()

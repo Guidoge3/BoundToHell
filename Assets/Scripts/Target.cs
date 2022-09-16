@@ -12,5 +12,6 @@ public class Target : MonoBehaviour, IDamageable
         {
             Destroy(gameObject);
         }
+        Debug.Log(health);
     }
 }
