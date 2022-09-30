@@ -22,6 +22,11 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     public float groundDrag;
 
+    [Header("Health")]
+    public HealthBar healthbar;
+    public int maxHealth = 100;
+    public int currentHealth;
+
     [Header("Jumping")]
     public float jumpForce;
     public float jumpCooldown;
@@ -89,6 +94,8 @@ public class PlayerMovementAdvanced : MonoBehaviour
 
     private void Start()
     {
+        currentHealth = maxHealth;
+        healthbar.setMaxHealth(maxHealth);
         climbingScriptDone = GetComponent<ClimbingDone>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -112,6 +119,10 @@ public class PlayerMovementAdvanced : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TakeDamage(20);
+        }
     }
 
     private void FixedUpdate()
@@ -374,5 +385,18 @@ public class PlayerMovementAdvanced : MonoBehaviour
     {
         float mult = Mathf.Pow(10.0f, (float)digits);
         return Mathf.Round(value * mult) / mult;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        healthbar.setHealth(currentHealth);
+
+        //Check if player is dead
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
